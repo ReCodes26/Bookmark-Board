@@ -30,11 +30,25 @@ export function getAllBookmarks(): Array<Bookmark> {
   if (bookmarksString) {
     // Parse JSON
     const data: Array<Bookmark> = JSON.parse(bookmarksString);
-
     return data;
   }
   return new Array<Bookmark>();
 }
-export function updateBookmark() {}
+export function updateBookmark(ID: string, Data: Bookmark): boolean {
+  const index: number = getAllBookmarks().findIndex(
+    (bookmark) => bookmark.ID === ID,
+  );
+
+  if (index != -1) {
+    let updatedBookmarks: Bookmark[] = getAllBookmarks();
+    updatedBookmarks[index] = Data;
+    // Replace with new data
+    localStorage.setItem("bookmarks", JSON.stringify(updatedBookmarks));
+
+    return true;
+  }
+
+  return false;
+}
 export function deleteBookmark() {}
 export function favoriteBookmark() {}
