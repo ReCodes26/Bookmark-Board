@@ -1,9 +1,19 @@
 import { useEffect } from "react";
-import { getBookmark } from "./Bookmark/bookmarkFunctions";
+import type { Bookmark } from "./Data/bookmarkInterface";
+import {
+  getBookmark,
+  createBookmark,
+  getAllBookmarks,
+} from "./Bookmark/bookmarkFunctions";
 
 function App() {
   useEffect(() => {
-    console.log(getBookmark("213321"));
+    createBookmark({
+      Title: "New Bookmark",
+      Description: "Another new bookmark",
+      URL: "www.wikipedia.org",
+      Tags: ["Wiki", "Education"],
+    } as Bookmark);
   }, []);
   return (
     <h1 className="text-3xl font-bold underline text-blue-400">Hello world!</h1>

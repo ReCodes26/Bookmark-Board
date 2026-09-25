@@ -1,5 +1,19 @@
 import type { Bookmark } from "../Data/bookmarkInterface";
-export function createBookmark() {}
+
+export function createBookmark(Data: Bookmark) {
+  const BookmarkData: Bookmark = {
+    ...Data,
+    ID: crypto.randomUUID(),
+    DateModified: Date.now(),
+    Favorite: false,
+  };
+
+  // Add data to LocalStorage
+  const bookmarksArray = getAllBookmarks();
+  bookmarksArray.push(BookmarkData);
+
+  localStorage.setItem("bookmarks", JSON.stringify(bookmarksArray));
+}
 export function getBookmark(ID: string): Bookmark | null {
   const bookmarks = getAllBookmarks();
   if (bookmarks) {
@@ -11,15 +25,15 @@ export function getBookmark(ID: string): Bookmark | null {
 
   return null;
 }
-export function getAllBookmarks(): Bookmark[] | null {
+export function getAllBookmarks(): Array<Bookmark> {
   const bookmarksString = localStorage.getItem("bookmarks");
   if (bookmarksString) {
     // Parse JSON
-    const data: Bookmark[] = JSON.parse(bookmarksString);
+    const data: Array<Bookmark> = JSON.parse(bookmarksString);
 
     return data;
   }
-  return null;
+  return new Array<Bookmark>();
 }
 export function updateBookmark() {}
 export function deleteBookmark() {}

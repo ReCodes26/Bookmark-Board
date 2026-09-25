@@ -5,5 +5,5 @@ export interface Bookmark {
   Favorite: boolean;
   Description: string | null;
   Tags: string[] | null;
-  DateModified: Date | null;
+  DateModified: number | null;
 }
