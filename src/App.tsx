@@ -5,16 +5,12 @@ import {
   createBookmark,
   getAllBookmarks,
   updateBookmark,
+  deleteBookmark,
 } from "./Bookmark/bookmarkFunctions";
 
 function App() {
   useEffect(() => {
-    updateBookmark("084783", {
-      Title: "Updated bookmark",
-      Description: "YatAnother new bookmark",
-      URL: "www.example.org",
-      Tags: ["Test", "Ok"],
-    } as Bookmark);
+    deleteBookmark("32423");
   }, []);
   return (
     <h1 className="text-3xl font-bold underline text-blue-400">Hello world!</h1>

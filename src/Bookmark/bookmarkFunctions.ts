@@ -50,5 +50,20 @@ export function updateBookmark(ID: string, Data: Bookmark): boolean {
 
   return false;
 }
-export function deleteBookmark() {}
+export function deleteBookmark(ID: string): boolean {
+  const bookmarkIndex: number = getAllBookmarks().findIndex(
+    (bookmark) => bookmark.ID === ID,
+  );
+
+  if (bookmarkIndex != -1) {
+    let updatedBookmarks: Bookmark[] = getAllBookmarks();
+    updatedBookmarks.splice(bookmarkIndex, 1);
+    // Replace with new data
+    localStorage.setItem("bookmarks", JSON.stringify(updatedBookmarks));
+
+    return true;
+  }
+
+  return false;
+}
 export function favoriteBookmark() {}
