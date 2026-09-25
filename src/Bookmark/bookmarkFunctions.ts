@@ -41,8 +41,12 @@ export function updateBookmark(ID: string, Data: Bookmark): boolean {
 
   if (index != -1) {
     let updatedBookmarks: Bookmark[] = getAllBookmarks();
-    updatedBookmarks[index] = Data;
-    // Replace with new data
+    const oldBookmark: Bookmark = updatedBookmarks[index];
+    updatedBookmarks[index] = {
+      ...oldBookmark,
+      ...Data,
+      DateModified: Date.now(),
+    };
     localStorage.setItem("bookmarks", JSON.stringify(updatedBookmarks));
 
     return true;
