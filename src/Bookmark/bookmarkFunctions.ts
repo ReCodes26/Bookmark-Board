@@ -34,10 +34,8 @@ export function getAllBookmarks(): Array<Bookmark> {
   }
   return new Array<Bookmark>();
 }
-export function updateBookmark(ID: string, Data: Bookmark): boolean {
-  const index: number = getAllBookmarks().findIndex(
-    (bookmark) => bookmark.ID === ID,
-  );
+export function updateBookmark(ID: string, Data: Bookmark) {
+  const index = getBookmarkIndexByID(ID);
 
   if (index != -1) {
     let updatedBookmarks: Bookmark[] = getAllBookmarks();
@@ -49,25 +47,23 @@ export function updateBookmark(ID: string, Data: Bookmark): boolean {
     };
     localStorage.setItem("bookmarks", JSON.stringify(updatedBookmarks));
 
-    return true;
+    return;
   }
-
-  return false;
 }
-export function deleteBookmark(ID: string): boolean {
-  const bookmarkIndex: number = getAllBookmarks().findIndex(
-    (bookmark) => bookmark.ID === ID,
-  );
-
+export function deleteBookmark(ID: string) {
+  const bookmarkIndex = getBookmarkIndexByID(ID);
   if (bookmarkIndex != -1) {
     let updatedBookmarks: Bookmark[] = getAllBookmarks();
     updatedBookmarks.splice(bookmarkIndex, 1);
     // Replace with new data
     localStorage.setItem("bookmarks", JSON.stringify(updatedBookmarks));
-
-    return true;
+    return;
   }
-
-  return false;
 }
-export function favoriteBookmark() {}
+export function favoriteBookmark(ID: string, Value: boolean) {
+  updateBookmark(ID, { Favorite: Value } as Bookmark);
+}
+
+function getBookmarkIndexByID(ID: string): number {
+  return getAllBookmarks().findIndex((bookmark) => bookmark.ID === ID);
+}
